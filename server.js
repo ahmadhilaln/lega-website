@@ -26,19 +26,71 @@ function getEventPath(eventCode) {
    LOGIN
 ========================================================= */
 app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
+  const { eventCode, username, password } = req.body;
 
-  // Login dummy sementara
-  if (username === "admin" && password === "admin") {
-    return res.json({
-      success: true,
-      message: "Login berhasil"
-    });
+  if (!eventCode)
+    return res.status(400).json({ success: false, message: "eventCode wajib" });
+
+  const filePath = getEventPath(eventCode);
+
+  if (!fs.existsSync(filePath))
+    return res.status(404).json({ success: false, message: "Event tidak ditemukan" });
+
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+  if (password === data.eventInfo.passwordAdmin) {
+    return res.json({ success: true });
   }
 
-  res.status(401).json({
-    success: false,
-    message: "Username atau password salah"
+  res.status(401).json({ success: false, message: "Login gagal" });
+});
+
+/* =========================================================
+   REGISTER EVENT
+========================================================= */
+app.post("/api/register-event", (req, res) => {
+  const {
+    namaEvent,
+    tanggalMulai,
+    tanggalSelesai,
+    lokasi,
+    jumlahNomor,
+    passwordAdmin
+  } = req.body;
+
+  if (!namaEvent)
+    return res.status(400).json({ success: false, message: "Nama event wajib" });
+
+  const eventCode = namaEvent.replace(/\s+/g, "").toUpperCase();
+  const filePath = getEventPath(eventCode);
+
+  if (fs.existsSync(filePath))
+    return res.status(400).json({ success: false, message: "Event sudah ada" });
+
+  const newEvent = {
+    eventInfo: {
+      namaEvent,
+      tanggalMulai,
+      tanggalSelesai,
+      lokasi,
+      jumlahNomor,
+      passwordAdmin
+    },
+    database: {
+      peserta: [],
+      panitia: [],
+      wasit: []
+    },
+    pertandingan: [],
+    schedule: {}
+  };
+
+  fs.writeFileSync(filePath, JSON.stringify(newEvent, null, 2));
+
+  res.json({
+    success: true,
+    message: "Event berhasil dibuat",
+    eventCode
   });
 });
 
@@ -56,15 +108,12 @@ app.get("/api/admin/event", (req, res) => {
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
-  try {
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    res.json({
-      eventInfo: data.eventInfo || {},
-      pertandingan: data.pertandingan || []
-    });
-  } catch {
-    res.status(500).json({ error: "JSON rusak" });
-  }
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+  res.json({
+    eventInfo: data.eventInfo || {},
+    pertandingan: data.pertandingan || []
+  });
 });
 
 /* =========================================================
@@ -81,22 +130,18 @@ app.get("/api/admin/database", (req, res) => {
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
-  try {
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    res.json({
-      peserta: data.database?.peserta || [],
-      panitia: data.database?.panitia || [],
-      wasit: data.database?.wasit || [],
-      pertandingan: data.pertandingan || []
-    });
-  } catch {
-    res.status(500).json({ error: "JSON rusak" });
-  }
+  res.json({
+    peserta: data.database?.peserta || [],
+    panitia: data.database?.panitia || [],
+    wasit: data.database?.wasit || [],
+    pertandingan: data.pertandingan || []
+  });
 });
 
 /* =========================================================
-   SAVE DATABASE + PERTANDINGAN
+   SAVE DATABASE
 ========================================================= */
 app.post("/api/admin/database", (req, res) => {
   const { eventCode, database, pertandingan } = req.body;
@@ -109,18 +154,14 @@ app.post("/api/admin/database", (req, res) => {
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
-  try {
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    if (database) data.database = database;
-    if (pertandingan) data.pertandingan = pertandingan;
+  if (database) data.database = database;
+  if (pertandingan) data.pertandingan = pertandingan;
 
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-    res.json({ success: true });
-  } catch {
-    res.status(500).json({ error: "Gagal menyimpan data" });
-  }
+  res.json({ success: true });
 });
 
 /* =========================================================
@@ -137,12 +178,9 @@ app.get("/api/admin/match-number", (req, res) => {
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
-  try {
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    res.json(data.pertandingan || []);
-  } catch {
-    res.status(500).json({ error: "JSON rusak" });
-  }
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+  res.json(data.pertandingan || []);
 });
 
 /* =========================================================
@@ -159,30 +197,22 @@ app.post("/api/admin/match-number", (req, res) => {
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
-  try {
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    if (!data.pertandingan) {
-      data.pertandingan = [];
-    }
+  if (!data.pertandingan) data.pertandingan = [];
 
-    const index = data.pertandingan.findIndex(
-      m => String(m.id) === String(matchNumber.id)
-    );
+  const index = data.pertandingan.findIndex(
+    m => String(m.id) === String(matchNumber.id)
+  );
 
-    if (index !== -1) {
-      data.pertandingan[index] = matchNumber;
-    } else {
-      data.pertandingan.push(matchNumber);
-    }
+  if (index !== -1)
+    data.pertandingan[index] = matchNumber;
+  else
+    data.pertandingan.push(matchNumber);
 
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-    res.json({ success: true });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Gagal menyimpan pertandingan" });
-  }
+  res.json({ success: true });
 });
 
 /* =========================================================
@@ -199,19 +229,14 @@ app.delete("/api/admin/match-number", (req, res) => {
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
-  try {
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    data.pertandingan = (data.pertandingan || []).filter(
-      m => String(m.id) !== String(id)
-    );
+  data.pertandingan = (data.pertandingan || [])
+    .filter(m => String(m.id) !== String(id));
 
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-    res.json({ success: true });
-  } catch {
-    res.status(500).json({ error: "Gagal menghapus pertandingan" });
-  }
+  res.json({ success: true });
 });
 
 /* =========================================================
@@ -228,16 +253,12 @@ app.get("/api/admin/schedule", (req, res) => {
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
-  try {
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    res.json({
-      schedule: data.schedule || {},
-      courts: data.schedule?.courts || []
-    });
-  } catch {
-    res.status(500).json({ error: "JSON rusak" });
-  }
+  res.json({
+    schedule: data.schedule || {},
+    courts: data.schedule?.courts || []
+  });
 });
 
 /* =========================================================
@@ -254,17 +275,13 @@ app.post("/api/admin/schedule", (req, res) => {
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
-  try {
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    data.schedule = schedule;
+  data.schedule = schedule;
 
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-    res.json({ success: true });
-  } catch {
-    res.status(500).json({ error: "Gagal menyimpan schedule" });
-  }
+  res.json({ success: true });
 });
 
 /* =========================================================
