@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 /* =========================================================
-   PORT (WAJIB untuk Render)
+   PORT
 ========================================================= */
 const PORT = process.env.PORT || 3000;
 
@@ -23,15 +23,36 @@ function getEventPath(eventCode) {
 }
 
 /* =========================================================
+   LOGIN
+========================================================= */
+app.post("/api/login", (req, res) => {
+  const { username, password } = req.body;
+
+  // Login dummy sementara
+  if (username === "admin" && password === "admin") {
+    return res.json({
+      success: true,
+      message: "Login berhasil"
+    });
+  }
+
+  res.status(401).json({
+    success: false,
+    message: "Username atau password salah"
+  });
+});
+
+/* =========================================================
    GET EVENT INFO
 ========================================================= */
 app.get("/api/admin/event", (req, res) => {
-
   const { eventCode } = req.query;
+
   if (!eventCode)
     return res.status(400).json({ error: "eventCode wajib" });
 
   const filePath = getEventPath(eventCode);
+
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
@@ -50,12 +71,13 @@ app.get("/api/admin/event", (req, res) => {
    GET DATABASE
 ========================================================= */
 app.get("/api/admin/database", (req, res) => {
-
   const { eventCode } = req.query;
+
   if (!eventCode)
     return res.status(400).json({ error: "eventCode wajib" });
 
   const filePath = getEventPath(eventCode);
+
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
@@ -68,7 +90,6 @@ app.get("/api/admin/database", (req, res) => {
       wasit: data.database?.wasit || [],
       pertandingan: data.pertandingan || []
     });
-
   } catch {
     res.status(500).json({ error: "JSON rusak" });
   }
@@ -78,13 +99,13 @@ app.get("/api/admin/database", (req, res) => {
    SAVE DATABASE + PERTANDINGAN
 ========================================================= */
 app.post("/api/admin/database", (req, res) => {
-
   const { eventCode, database, pertandingan } = req.body;
 
   if (!eventCode)
     return res.status(400).json({ error: "eventCode wajib" });
 
   const filePath = getEventPath(eventCode);
+
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
@@ -97,7 +118,6 @@ app.post("/api/admin/database", (req, res) => {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
     res.json({ success: true });
-
   } catch {
     res.status(500).json({ error: "Gagal menyimpan data" });
   }
@@ -107,12 +127,13 @@ app.post("/api/admin/database", (req, res) => {
    GET MATCH NUMBER
 ========================================================= */
 app.get("/api/admin/match-number", (req, res) => {
-
   const { eventCode } = req.query;
+
   if (!eventCode)
     return res.status(400).json({ error: "eventCode wajib" });
 
   const filePath = getEventPath(eventCode);
+
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
@@ -128,13 +149,13 @@ app.get("/api/admin/match-number", (req, res) => {
    SAVE MATCH NUMBER
 ========================================================= */
 app.post("/api/admin/match-number", (req, res) => {
-
   const { eventCode, matchNumber } = req.body;
 
   if (!eventCode)
     return res.status(400).json({ error: "eventCode wajib" });
 
   const filePath = getEventPath(eventCode);
+
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
@@ -158,7 +179,6 @@ app.post("/api/admin/match-number", (req, res) => {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
     res.json({ success: true });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Gagal menyimpan pertandingan" });
@@ -169,26 +189,26 @@ app.post("/api/admin/match-number", (req, res) => {
    DELETE MATCH NUMBER
 ========================================================= */
 app.delete("/api/admin/match-number", (req, res) => {
-
   const { eventCode, id } = req.body;
 
   if (!eventCode)
     return res.status(400).json({ error: "eventCode wajib" });
 
   const filePath = getEventPath(eventCode);
+
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
   try {
     const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    data.pertandingan = (data.pertandingan || [])
-      .filter(m => String(m.id) !== String(id));
+    data.pertandingan = (data.pertandingan || []).filter(
+      m => String(m.id) !== String(id)
+    );
 
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
     res.json({ success: true });
-
   } catch {
     res.status(500).json({ error: "Gagal menghapus pertandingan" });
   }
@@ -198,12 +218,13 @@ app.delete("/api/admin/match-number", (req, res) => {
    GET SCHEDULE
 ========================================================= */
 app.get("/api/admin/schedule", (req, res) => {
-
   const { eventCode } = req.query;
+
   if (!eventCode)
     return res.status(400).json({ error: "eventCode wajib" });
 
   const filePath = getEventPath(eventCode);
+
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
@@ -214,7 +235,6 @@ app.get("/api/admin/schedule", (req, res) => {
       schedule: data.schedule || {},
       courts: data.schedule?.courts || []
     });
-
   } catch {
     res.status(500).json({ error: "JSON rusak" });
   }
@@ -224,13 +244,13 @@ app.get("/api/admin/schedule", (req, res) => {
    SAVE SCHEDULE
 ========================================================= */
 app.post("/api/admin/schedule", (req, res) => {
-
   const { eventCode, schedule } = req.body;
 
   if (!eventCode)
     return res.status(400).json({ error: "eventCode wajib" });
 
   const filePath = getEventPath(eventCode);
+
   if (!fs.existsSync(filePath))
     return res.status(404).json({ error: "Event tidak ditemukan" });
 
@@ -242,7 +262,6 @@ app.post("/api/admin/schedule", (req, res) => {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
     res.json({ success: true });
-
   } catch {
     res.status(500).json({ error: "Gagal menyimpan schedule" });
   }
