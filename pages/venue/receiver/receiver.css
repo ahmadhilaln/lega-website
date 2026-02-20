@@ -1,0 +1,140 @@
+body{
+  margin:0;
+  background: #0b1020;
+  color:#fff;
+  font-family: Arial, sans-serif;
+}
+
+/* WASIT */
+.rx-header{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  padding: 14px 16px;
+  background: rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+.rx-title{
+  font-weight: 900;
+  letter-spacing: .6px;
+}
+.rx-home{
+  color:#fff;
+  text-decoration:none;
+  font-weight:900;
+  border: 2px solid #2ab57e;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+}
+
+.rx-wrap{
+  padding: 18px;
+  display:flex;
+  justify-content:center;
+}
+.rx-card{
+  width: min(720px, 100%);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.35);
+}
+.rx-meta{
+  font-weight: 900;
+  opacity: .95;
+  margin-bottom: 14px;
+}
+.rx-score{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.rx-team{
+  flex:1;
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 16px;
+}
+.rx-name{
+  font-weight: 900;
+  font-size: 18px;
+  opacity: .95;
+}
+.rx-num{
+  font-weight: 900;
+  font-size: 64px;
+  margin-top: 6px;
+}
+.rx-mid{
+  font-weight: 900;
+  opacity:.75;
+}
+.rx-note{
+  margin-top: 14px;
+  font-weight: 900;
+  font-size: 12px;
+  opacity: .85;
+}
+
+/* SCOREBOARD */
+.sb-body{ background: #000; }
+.sb-wrap{
+  min-height: 100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding: 26px;
+}
+.sb-top{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  margin-bottom: 18px;
+}
+.sb-event{
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+.sb-lap{
+  font-weight: 900;
+  font-size: 18px;
+  opacity: .9;
+}
+.sb-board{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 16px;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: #111;
+  padding: 24px;
+}
+.sb-side{ flex:1; }
+.sb-side.right{ text-align:right; }
+.sb-name{
+  font-weight: 900;
+  font-size: 34px;
+  opacity: .95;
+}
+.sb-score{
+  font-weight: 900;
+  font-size: 120px;
+  margin-top: 10px;
+}
+.sb-vs{
+  font-weight: 900;
+  font-size: 34px;
+  opacity: .7;
+  padding: 0 8px;
+}
+.sb-footer{
+  margin-top: 16px;
+  font-weight: 900;
+  opacity: .85;
+}

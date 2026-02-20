@@ -1,0 +1,36 @@
+<div class="wasit-container">
+
+  <!-- LEFT -->
+  <div class="list-section">
+    <div class="toolbar">
+      <button id="btnTambah">TAMBAH DATA</button>
+      <button id="btnImport">IMPORT</button>
+      <button id="btnTemplate">TEMPLATE CSV</button>
+      <button id="btnPrint">PRINT</button>
+      <input type="file" id="fileImport" hidden accept=".csv">
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>KODE</th>
+          <th>NAMA</th>
+          <th>LISENSI</th>
+          <th>WA</th>
+          <th>AKSI</th>
+        </tr>
+      </thead>
+      <tbody id="tbodyWasit"></tbody>
+    </table>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="detail-section hidden" id="detailSection">
+    <h3>DETAIL WASIT</h3>
+    <div id="detailContent"></div>
+  </div>
+
+</div>
+
+<div id="modalRoot"></div>

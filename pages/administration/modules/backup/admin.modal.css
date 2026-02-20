@@ -1,0 +1,45 @@
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.modal-box{
+  width:450px;
+  background:white;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
+
+.modal-box h3{
+  text-align:center;
+  margin-bottom:20px;
+  color:#198754;
+}
+
+.modal-box label{
+  display:block;
+  margin-top:10px;
+  font-weight:600;
+}
+
+.modal-box select,
+.modal-box input{
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  border-radius:6px;
+  border:1px solid #ced4da;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+}

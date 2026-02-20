@@ -1,0 +1,170 @@
+body{
+  font-family: Arial, sans-serif;
+  margin:0;
+  background:#f4f6f9;
+}
+
+.drawing-wrapper{
+  padding:15px;
+}
+
+/* HEADER */
+.drawing-header{
+  text-align:center;
+  margin-bottom:8px;
+}
+
+.drawing-header h2{
+  margin:0;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.drawing-header h4{
+  margin:2px 0 0 0;
+  font-size:13px;
+  font-weight:normal;
+  color:#555;
+}
+
+/* PRINT BUTTON */
+.drawing-top-action{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.drawing-top-action button{
+  padding:5px 12px;
+  background:#2e7d32;
+  color:white;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.drawing-top-action button:hover{
+  opacity:0.85;
+}
+
+/* GRID 1 BARIS CENTER */
+.drawing-grid{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:1fr;
+  gap:12px;
+  justify-content:center;
+}
+
+.column{
+  background:white;
+  padding:8px;
+  border-radius:6px;
+  min-width:180px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* database scroll bawah */
+.column:first-child{
+  max-height:450px;
+  overflow-y:auto;
+}
+
+.column h3{
+  text-align:center;
+  font-size:13px;
+  margin:0 0 5px 0;
+  letter-spacing:1px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+td, th{
+  border:1px solid #ddd;
+  padding:5px;
+  font-size:12px;
+}
+
+th{
+  background:#eee;
+  text-align:center;
+}
+
+/* nama klub rata kiri */
+.club-name{
+  text-align:left;
+  padding-left:6px;
+}
+
+.db-controls{
+  display:flex;
+  gap:5px;
+  margin-bottom:6px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.db-controls input{
+  width:100px;
+  padding:3px;
+  font-size:11px;
+}
+
+.db-controls select{
+  padding:3px;
+  font-size:11px;
+}
+
+.db-controls button{
+  padding:4px 6px;
+  font-size:11px;
+  background:#1976d2;
+  color:white;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+.db-controls button:hover{
+  opacity:0.85;
+}
+
+.red-used{
+  color:red;
+  font-weight:bold;
+  pointer-events:none;
+}
+
+.delete-btn{
+  color:red;
+  cursor:pointer;
+  font-weight:bold;
+  text-align:center;
+  width:22px;
+}
+
+.delete-btn:hover{
+  background:#ffe5e5;
+}
+
+/* PRINT */
+@media print {
+
+  .db-controls,
+  .drawing-top-action,
+  .column:first-child{
+    display:none !important;
+  }
+
+  .column{
+    box-shadow:none;
+    border:none;
+  }
+
+  body{
+    background:white;
+  }
+}

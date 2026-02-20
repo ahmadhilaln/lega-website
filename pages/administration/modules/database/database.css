@@ -1,0 +1,26 @@
+.db-wrapper{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+.db-tabs{
+  display:flex;
+  gap:4px;
+  border-bottom:1px solid #ddd;
+  margin-bottom:10px;
+}
+
+.db-tab{
+  padding:8px 18px;
+  border:none;
+  background:#e4e6eb;
+  border-radius:8px 8px 0 0;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.db-tab.active{
+  background:#ffffff;
+  border-bottom:2px solid #198754;
+}

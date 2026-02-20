@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LEGA • Venue</title>
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/pages/venue/venue.css" />
+</head>
+
+<body>
+
+  <!-- ================= AUTH GUARD ================= -->
+  <script>
+    const storedEvent = localStorage.getItem("currentEvent");
+    if(!storedEvent){
+      window.location.replace("/index.html");
+    }
+  </script>
+
+  <!-- ================= HEADER ================= -->
+  <header class="db-header-banner" style="position:relative;">
+    <img src="/assets/images/header-database.jpg" alt="Header Venue">
+
+    <!-- EVENT NAME -->
+    <div id="eventInfo" style="
+      position:absolute;
+      left:40px;
+      top:18px;
+      font-weight:900;
+      color:#2a7d2a;
+      font-size:16px;">
+    </div>
+
+    <!-- LOGOUT BUTTON -->
+    <button onclick="logout()" 
+      style="
+        position:absolute;
+        top:18px;
+        right:150px;
+        padding:8px 18px;
+        border-radius:30px;
+        background: rgba(255,255,255,0.85);
+        border:2px solid #b11f1f;
+        font-weight:900;
+        cursor:pointer;">
+      LOG OUT
+    </button>
+
+    <!-- HOME BUTTON -->
+    <a href="/index.html" class="home-btn">HOME</a>
+
+    <button id="btnSwitchEvent" class="home-btn secondary" type="button" style="display:none;">
+      GANTI EVENT
+    </button>
+  </header>
+
+  <!-- ========= NO EVENT ========= -->
+  <section id="noEventState" class="state-wrap" style="display:none;">
+    <div class="state-card">
+      <h2>Belum ada data Event</h2>
+      <p>Silakan buat Event terlebih dahulu di menu <b>Administration</b>.</p>
+      <a class="state-btn" href="/pages/administration/index.html">
+        Ke Administration
+      </a>
+    </div>
+  </section>
+
+  <!-- ========= EVENT SELECTOR ========= -->
+  <section id="eventSelector" class="selector-wrap" style="display:none;">
+    <div class="selector-title">PILIH EVENT</div>
+    <div id="eventGrid" class="event-grid"></div>
+  </section>
+
+  <!-- ========= VENUE APP ========= -->
+  <section id="venueSection" style="display:none;">
+
+    <div class="venue-top">
+      <div class="venue-title" id="venueTitle">VENUE</div>
+      <div class="venue-meta" id="venueMeta">-</div>
+    </div>
+
+    <div class="tabbar">
+      <button class="tab active" data-view="opening" type="button">
+        <span class="tab-icon">🎵</span> Opening
+      </button>
+      <button class="tab" data-view="scoresheet" type="button">
+        <span class="tab-icon">📝</span> Scoresheet Digital
+      </button>
+      <button class="tab" data-view="scoreboard" type="button">
+        <span class="tab-icon">📺</span> Scoreboard Digital
+      </button>
+    </div>
+
+    <section class="db-card">
+
+      <div class="bottom-tools">
+        <div class="search-pill">
+          <div class="label">Event</div>
+          <input id="eventIdBox" readonly />
+        </div>
+        <div class="btnrow" id="actionRow"></div>
+      </div>
+
+      <section id="view_opening" class="view">
+        <div class="grid2">
+          <div class="panel">
+            <div class="panel-title">Waktu Berjalan</div>
+            <div class="timer-box">
+              <div class="timer-display" id="timerDisplay">00:00</div>
+              <div class="timer-hint">
+                Timer mulai saat tombol <b>Start Pertandingan</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title">Lagu Opening</div>
+            <div class="rowline">
+              <div class="lbl">File</div>
+              <div class="val" id="openingFileLabel">Belum ada</div>
+            </div>
+            <div class="rowline">
+              <div class="lbl">Aksi</div>
+              <div class="val">
+                <button class="actbtn import" id="btnOpeningImport">Import</button>
+                <button class="actbtn tpl" id="btnOpeningDelay">Play Delay 5 detik</button>
+                <button class="actbtn print" id="btnOpeningStop">Stop</button>
+              </div>
+            </div>
+            <input id="openingFile" type="file" accept="audio/*" style="display:none;" />
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </section>
+
+  <!-- ================= SOCKET ================= -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/pages/venue/venue.js"></script>
+
+  <!-- ================= AUTH SCRIPT ================= -->
+  <script>
+    window.onload = function(){
+      const data = JSON.parse(localStorage.getItem("currentEvent"));
+      if(data){
+        document.getElementById("eventInfo").innerText =
+          data.eventName + " (" + data.eventCode + ")";
+      }
+    };
+
+    function logout(){
+      localStorage.removeItem("currentEvent");
+      window.location.replace("/index.html");
+    }
+  </script>
+
+</body>
+</html>

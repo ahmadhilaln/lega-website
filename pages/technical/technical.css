@@ -1,0 +1,84 @@
+body{
+  background: url("/assets/images/background-database.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* ================= NOMOR LIST ================= */
+
+.nomor-list{
+  display:flex;
+  flex-direction:column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.nomor-card{
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.10);
+  border: 1px solid rgba(0,0,0,.06);
+  padding: 14px 16px;
+}
+
+.nomor-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.nomor-title{
+  font-weight: 1000;
+  color:#0b5d1e;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.nomor-meta{
+  font-weight: 800;
+  color:#444;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.nomor-badge{
+  display:inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(42,181,126,.15);
+  border: 1px solid rgba(42,181,126,.35);
+  color:#166a49;
+  font-weight: 1000;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.nomor-actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.nbtn{
+  border:none;
+  cursor:pointer;
+  font-weight: 1000;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color:#fff;
+  box-shadow: 0 6px 12px rgba(0,0,0,.12);
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width: 170px;
+}
+
+.nbtn.drawing{ background:#2ab57e; }
+.nbtn.schedule{ background:#2c97de; }
+.nbtn.input{ background:#f0b13b; color:#111; }
+.nbtn.standings{ background:#7c60d6; }

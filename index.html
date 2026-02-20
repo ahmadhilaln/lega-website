@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEGA - Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header-banner">
+    <img src="assets/images/header.jpg" alt="Header LEGA">
+
+    <div id="eventDisplay" style="
+      position:absolute;
+      left:25px;
+      top:18px;
+      font-weight:bold;
+      color:white;
+      display:none;">
+    </div>
+
+    <a href="#" class="login-btn" id="authBtn" onclick="handleAuth()">LOG IN</a>
+  </header>
+
+
+  <!-- ================= MENU ================= -->
+  <main class="menu-container" id="menuContainer" style="display:none;">
+
+    <!-- DATABASE MENU DIHAPUS -->
+
+    <div class="menu-item" onclick="goPage('pages/administration/index.html')">
+      <img src="assets/icons/administration.png">
+      <p>Administration</p>
+    </div>
+
+    <div class="menu-item" onclick="goPage('pages/technical/index.html')">
+      <img src="assets/icons/technical.png">
+      <p>Technical Competition</p>
+    </div>
+
+    <div class="menu-item" onclick="goPage('pages/venue/index.html')">
+      <img src="assets/icons/venue.png">
+      <p>Venue Competition</p>
+    </div>
+
+  </main>
+
+
+  <!-- ================= LOGIN MODAL ================= -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-box">
+      <h3>Login Event</h3>
+      <input id="loginEvent" placeholder="Event Code">
+      <input id="loginUser" placeholder="Username">
+      <input id="loginPass" type="password" placeholder="Password">
+      <button onclick="login()">LOGIN</button>
+      <button onclick="closeLogin()">Close</button>
+
+      <p style="margin-top:15px; font-size:14px;">
+        Belum punya event?
+        <span style="color:#0b5d1e; cursor:pointer;" onclick="openRegister()">
+          Daftarkan Event
+        </span>
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ================= REGISTER MODAL ================= -->
+  <div id="registerModal" class="modal-overlay">
+    <div class="modal-box">
+      <h3>Register Event</h3>
+      <input id="eventName" placeholder="Event Name">
+      <input id="logo" type="file">
+      <input id="startDate" type="date">
+      <input id="endDate" type="date">
+      <input id="location" placeholder="Location">
+      <input id="totalCourts" placeholder="Total Courts">
+      <input id="masterCode" placeholder="Master Code">
+      <button onclick="registerEvent()">CREATE</button>
+      <button onclick="closeRegister()">Close</button>
+    </div>
+  </div>
+
+
+<script>
+
+/* ================= AUTH ================= */
+
+function handleAuth(){
+  const event = localStorage.getItem("currentEvent");
+  if(event){
+    logout();
+  } else {
+    openLogin();
+  }
+}
+
+/* ================= LOGIN MODAL ================= */
+
+function openLogin(){
+  document.getElementById("loginModal").style.display = "flex";
+}
+
+function closeLogin(){
+  document.getElementById("loginModal").style.display = "none";
+}
+
+/* ================= REGISTER MODAL ================= */
+
+function openRegister(){
+  closeLogin();
+  document.getElementById("registerModal").style.display = "flex";
+}
+
+function closeRegister(){
+  document.getElementById("registerModal").style.display = "none";
+}
+
+
+/* ================= LOGIN ================= */
+
+async function login(){
+
+  if(!loginEvent.value || !loginUser.value || !loginPass.value){
+    alert("Semua field wajib diisi.");
+    return;
+  }
+
+  const res = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      eventCode: loginEvent.value.trim(),
+      username: loginUser.value.trim(),
+      password: loginPass.value.trim()
+    })
+  });
+
+  const data = await res.json();
+
+  if(data.success){
+    localStorage.setItem("currentEvent", JSON.stringify(data));
+    applyLoginState(data);
+    closeLogin();
+  } else {
+    alert(data.message);
+  }
+}
+
+
+/* ================= REGISTER ================= */
+
+async function registerEvent(){
+
+  if(!eventName.value || !logo.files[0] || !masterCode.value){
+    alert("Field wajib diisi.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("eventName", eventName.value);
+  formData.append("logo", logo.files[0]);
+  formData.append("startDate", startDate.value);
+  formData.append("endDate", endDate.value);
+  formData.append("location", location.value);
+  formData.append("totalCourts", totalCourts.value);
+  formData.append("masterCode", masterCode.value);
+
+  const res = await fetch("/api/register-event", {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+
+  if(data.success){
+    alert(
+      "Event Code: " + data.eventCode +
+      "\nUsername: " + data.username +
+      "\nPassword: " + data.password
+    );
+    closeRegister();
+  } else {
+    alert(data.message);
+  }
+}
+
+
+/* ================= LOGOUT ================= */
+
+function logout(){
+  localStorage.removeItem("currentEvent");
+  location.reload();
+}
+
+
+/* ================= APPLY LOGIN ================= */
+
+function applyLoginState(data){
+
+  document.getElementById("menuContainer").style.display = "flex";
+
+  const eventDisplay = document.getElementById("eventDisplay");
+  eventDisplay.innerText = data.eventName + " (" + data.eventCode + ")";
+  eventDisplay.style.display = "block";
+
+  const btn = document.getElementById("authBtn");
+  btn.innerText = "LOG OUT";
+}
+
+
+/* ================= PAGE NAVIGATION ================= */
+
+function goPage(url){
+
+  const stored = localStorage.getItem("currentEvent");
+
+  if(!stored){
+    alert("Silakan login terlebih dahulu.");
+    return;
+  }
+
+  const data = JSON.parse(stored);
+
+  location.href = url + "?event=" + data.eventCode;
+}
+
+
+/* ================= AUTO CHECK LOGIN ================= */
+
+window.onload = function(){
+
+  const stored = localStorage.getItem("currentEvent");
+
+  if(stored){
+    const data = JSON.parse(stored);
+    applyLoginState(data);
+  }
+
+};
+
+</script>
+
+</body>
+</html>

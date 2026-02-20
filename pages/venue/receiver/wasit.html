@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LEGA • Wasit</title>
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/pages/venue/receiver/receiver.css" />
+</head>
+<body>
+
+  <header class="rx-header">
+    <div class="rx-title">WASIT • LAPANGAN <span id="lapNo">-</span></div>
+    <a class="rx-home" href="/index.html">HOME</a>
+  </header>
+
+  <main class="rx-wrap">
+    <div class="rx-card">
+      <div class="rx-meta" id="rxMeta">-</div>
+
+      <div class="rx-score">
+        <div class="rx-team">
+          <div class="rx-name" id="teamA">TEAM A</div>
+          <div class="rx-num" id="scoreA">0</div>
+        </div>
+
+        <div class="rx-mid">VS</div>
+
+        <div class="rx-team">
+          <div class="rx-name" id="teamB">TEAM B</div>
+          <div class="rx-num" id="scoreB">0</div>
+        </div>
+      </div>
+
+      <div class="rx-note">
+        Menerima control realtime via Socket.IO.
+      </div>
+    </div>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/pages/venue/receiver/receiver.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "eventInfo": {
+    "eventName": "SAPUJAGAT CUP",
+    "logoPath": "/uploads/event_1771075540404.PNG",
+    "startDate": "2026-02-14",
+    "endDate": "2026-02-18",
+    "location": "undefined",
+    "totalCourts": "3",
+    "username": "SAPU591_admin",
+    "password": "$2b$10$EikI25Qbq1u7TxFNWXLQVehnIcnGHJ2RhcXsga3DIptB3E0KXORpm"
+  },
+  "panitia": [],
+  "peserta": [],
+  "wasit": [],
+  "schedule": [],
+  "match": [],
+  "score": [],
+  "matchNumber": [
+    {
+      "nomor": "Double",
+      "kategori": "Inter",
+      "gender": "Putra",
+      "sistem": "Group/Pool",
+      "peserta": 16,
+      "jumlahGroup": 12,
+      "juaraGroup": true,
+      "runnerUpGroup": true,
+      "best3": null,
+      "id": 1771156219982
+    },
+    {
+      "nomor": "Regu",
+      "kategori": "Inter",
+      "gender": "Putra",
+      "sistem": "Group/Pool",
+      "peserta": 16,
+      "jumlahGroup": 4,
+      "juaraGroup": true,
+      "runnerUpGroup": true,
+      "best3": null,
+      "id": 1771156256826
+    },
+    {
+      "nomor": "Quadrant",
+      "kategori": "Inter",
+      "gender": "Putra",
+      "sistem": "Group/Pool",
+      "peserta": 16,
+      "jumlahGroup": 4,
+      "juaraGroup": true,
+      "runnerUpGroup": true,
+      "best3": null,
+      "id": 1771157371680
+    }
+  ]
+}

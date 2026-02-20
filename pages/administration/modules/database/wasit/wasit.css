@@ -1,0 +1,83 @@
+.wasit-container{
+  display:grid;
+  grid-template-columns:50% 50%;
+  gap:20px;
+  padding:20px;
+}
+
+.list-section table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th, td{
+  border:1px solid #e5e7eb;
+  padding:8px;
+}
+
+tr:hover{
+  background:#f1f5f9;
+  cursor:pointer;
+}
+
+.active-row{
+  background:#dbeafe !important;
+}
+
+.toolbar{
+  display:flex;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.toolbar button{
+  padding:6px 12px;
+  border:none;
+  background:#198754;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.detail-section{
+  border:1px solid #ddd;
+  padding:15px;
+  border-radius:10px;
+  max-height:80vh;
+  overflow:auto;
+}
+
+.hidden{
+  display:none;
+}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.modal-card{
+  background:white;
+  width:500px;
+  max-height:80vh;
+  overflow:auto;
+  padding:20px;
+  border-radius:12px;
+}
+
+.modal-card input, 
+.modal-card select{
+  width:100%;
+  padding:6px;
+  margin-bottom:8px;
+}
+
+.modal-actions{
+  text-align:right;
+}

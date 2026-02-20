@@ -1,0 +1,29 @@
+h2{
+  color:#198754;
+  margin-bottom:15px;
+}
+
+button.primary{
+  background:#198754;
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:6px;
+}
+
+button.secondary{
+  background:#dee2e6;
+  border:none;
+  padding:8px 15px;
+  border-radius:6px;
+}
+
+.comp-card{
+  background:#f8f9fa;
+  padding:15px;
+  border-radius:8px;
+  margin-bottom:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}

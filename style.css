@@ -1,0 +1,174 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* ================= BACKGROUND ================= */
+body {
+  min-height: 100vh;
+  background: url("assets/images/background.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+/* ================= HEADER ================= */
+.header-banner {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+}
+
+.header-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ================= LOGIN BUTTON ================= */
+.login-btn {
+  position: absolute;
+  top: 18px;
+  right: 25px;
+
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+
+  padding: 8px 18px;
+  border-radius: 30px;
+  border: 2px solid #0b5d1e;
+
+  background: rgba(255, 255, 255, 0.85);
+  color: black;
+
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #0b5d1e;
+  color: white;
+}
+
+/* ================= MENU AREA ================= */
+.menu-container {
+  height: calc(100vh - 100px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+}
+
+/* ================= MENU ITEM ================= */
+.menu-item {
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.menu-item img {
+  width: 120px;
+}
+
+.menu-item p {
+  margin-top: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  color: #0b5d1e;
+}
+
+.menu-item:hover {
+  transform: scale(1.12);
+}
+
+/* ================= LOGIN MODAL ================= */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 320px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.modal-box h3 {
+  margin-bottom: 15px;
+  color: #0b5d1e;
+}
+
+.modal-box input {
+  width: 100%;
+  margin: 6px 0;
+  padding: 9px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.modal-box button {
+  margin-top: 8px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-box button:first-of-type {
+  background: #0b5d1e;
+  color: white;
+}
+
+.modal-box button:first-of-type:hover {
+  background: #094815;
+}
+
+.modal-box button:last-of-type {
+  background: #ccc;
+}
+
+.modal-box button:last-of-type:hover {
+  background: #999;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+
+  .header-banner {
+    height: 80px;
+  }
+
+  .menu-container {
+    flex-direction: column;
+    height: auto;
+    padding: 25px 0;
+    gap: 30px;
+  }
+
+  .menu-item img {
+    width: 100px;
+  }
+
+  .login-btn {
+    top: 12px;
+    right: 15px;
+    padding: 6px 14px;
+  }
+
+  .modal-box {
+    width: 90%;
+  }
+}

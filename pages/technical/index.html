@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LEGA • Technical</title>
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/pages/database/database.css" />
+  <link rel="stylesheet" href="/pages/technical/technical.css" />
+</head>
+
+<body>
+
+  <!-- ================= AUTH GUARD ================= -->
+  <script>
+    const storedEvent = localStorage.getItem("currentEvent");
+    if(!storedEvent){
+      window.location.replace("/index.html");
+    }
+  </script>
+
+  <!-- ================= HEADER ================= -->
+  <header class="db-header-banner" style="position:relative;">
+    <img src="/assets/images/header-technical.jpg" alt="Header Technical"
+         onerror="this.src='/assets/images/header-database.jpg'">
+
+    <!-- EVENT NAME -->
+    <div id="eventInfo" style="
+      position:absolute;
+      left:40px;
+      top:18px;
+      font-weight:900;
+      color:#2a7d2a;
+      font-size:16px;">
+    </div>
+
+    <!-- LOGOUT BUTTON -->
+    <button onclick="logout()" 
+      style="
+        position:absolute;
+        top:18px;
+        right:150px;
+        padding:8px 18px;
+        border-radius:30px;
+        background: rgba(255,255,255,0.85);
+        border:2px solid #b11f1f;
+        font-weight:900;
+        cursor:pointer;">
+      LOG OUT
+    </button>
+
+    <!-- HOME BUTTON -->
+    <a href="/index.html" class="home-btn">HOME</a>
+  </header>
+
+  <!-- ========= NO EVENT ========= -->
+  <section id="noEventState" class="state-wrap" style="display:none;">
+    <div class="state-card">
+      <h2>Belum ada data Event</h2>
+      <p>Silakan buat Event terlebih dahulu di menu <b>Administration</b>.</p>
+      <a class="state-btn" href="/pages/administration/index.html">
+        Ke Administration
+      </a>
+    </div>
+  </section>
+
+  <!-- ========= EVENT SELECTOR ========= -->
+  <section id="eventSelector" class="selector-wrap" style="display:none;">
+    <div class="selector-title">PILIH EVENT</div>
+    <div id="eventGrid" class="event-grid"></div>
+  </section>
+
+  <!-- WORKVIEW -->
+  <section id="workView" style="display:none;"></section>
+
+
+  <!-- ================= TECHNICAL SCRIPT ================= -->
+  <script src="/pages/technical/technical.js"></script>
+
+  <!-- ================= AUTH SCRIPT ================= -->
+  <script>
+    window.onload = function(){
+      const data = JSON.parse(localStorage.getItem("currentEvent"));
+      if(data){
+        document.getElementById("eventInfo").innerText =
+          data.eventName + " (" + data.eventCode + ")";
+      }
+    };
+
+    function logout(){
+      localStorage.removeItem("currentEvent");
+      window.location.replace("/index.html");
+    }
+  </script>
+
+</body>
+</html>

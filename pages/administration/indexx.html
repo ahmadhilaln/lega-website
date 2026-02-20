@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LEGA • Administration</title>
+
+<link rel="stylesheet" href="./admin.css">
+</head>
+
+<body>
+
+<header class="admin-header">
+  <div class="event-title">SAPUJAGAT CUP (SAPU591)</div>
+  <div class="header-buttons">
+    <button onclick="logout()">LOG OUT</button>
+    <button onclick="goHome()">HOME</button>
+  </div>
+</header>
+
+<div class="main-tabs">
+  <button class="tab" data-main="database">DATABASE</button>
+  <button class="tab" data-main="pertandingan">PERTANDINGAN</button>
+  <button class="tab" data-main="schedule">SCHEDULE</button>
+  <button class="tab" data-main="lembar">LEMBAR CETAK</button>
+</div>
+
+<div class="content-area" id="contentArea"></div>
+
+<script type="module" src="./admin.js"></script>
+
+</body>
+</html>

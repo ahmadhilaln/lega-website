@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Schedule Pertandingan</title>
+  <link rel="stylesheet" href="./pertandingan.css">
+</head>
+<body>
+
+  <div class="page-header">
+    <h2 id="pageTitle">PERTANDINGAN - COURT</h2>
+    <div class="header-actions">
+      <button onclick="window.print()" class="secondary">Print</button>
+    </div>
+  </div>
+
+  <!-- FILTER NOMOR -->
+  <div class="filter-box">
+    <label>Nomor:</label>
+    <select id="nomorSelect"></select>
+
+    <label>Stage:</label>
+    <select id="stageSelect"></select>
+  </div>
+
+  <div class="engine-container">
+
+    <!-- LEFT: DAFTAR MATCH -->
+    <div class="engine-left">
+      <h3 class="section-title center">MATCH TERSEDIA</h3>
+      <div id="matchList"></div>
+    </div>
+
+    <!-- RIGHT: SLOT MANUAL -->
+    <div class="engine-right">
+      <h3 class="section-title">JADWAL COURT</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Jam</th>
+            <th>Match</th>
+            <th>Sesi</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleBody"></tbody>
+      </table>
+
+      <button onclick="addRow()" class="secondary">+ Tambah Slot</button>
+    </div>
+
+  </div>
+
+  <script type="module" src="./pertandingan.js"></script>
+</body>
+</html>

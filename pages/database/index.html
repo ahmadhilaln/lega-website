@@ -1,0 +1,32 @@
+<section id="dbSection">
+
+  <div class="tabbar">
+    <button class="tab active" data-view="peserta">🏆 Peserta</button>
+    <button class="tab" data-view="panitia">👥 Panitia</button>
+    <button class="tab" data-view="wasit">⚖ Wasit</button>
+  </div>
+
+  <div class="db-card">
+
+    <div class="top-tools">
+      <input id="search" placeholder="Search..." />
+      <div class="btnrow">
+        <button id="btnEdit">Edit: ON</button>
+        <button id="btnImport">Import</button>
+        <button id="btnTemplate">Template CSV</button>
+        <button id="btnPrint">Print</button>
+      </div>
+      <input type="file" id="file" accept=".csv" hidden>
+    </div>
+
+    <div class="table-wrap">
+      <table id="dataTable">
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<script src="database.js"></script>

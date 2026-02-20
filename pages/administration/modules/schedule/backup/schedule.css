@@ -1,0 +1,72 @@
+/* ================================
+   SCHEDULE PAGE
+================================ */
+
+.competition-section{
+  margin-top:20px;
+}
+
+/* Card layout 2 kolom */
+
+.schedule-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+/* LEFT SIDE */
+
+.schedule-left{
+  display:flex;
+  flex-direction:column;
+}
+
+.schedule-left strong{
+  font-size:16px;
+  color:#212529;
+}
+
+.schedule-desc{
+  font-size:13px;
+  color:#6c757d;
+  margin-top:3px;
+}
+
+/* RIGHT SIDE */
+
+.schedule-actions{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+/* Court buttons */
+
+.schedule-actions button{
+  padding:5px 12px;
+  border-radius:6px;
+  border:1px solid #ced4da;
+  cursor:pointer;
+  background:white;
+  font-size:13px;
+  font-weight:500;
+  min-width:36px;
+  transition:all 0.2s ease;
+}
+
+.schedule-actions button:hover{
+  background:#e9ecef;
+}
+
+/* Print All */
+
+.schedule-actions .print-all{
+  background:#198754;
+  color:white;
+  border:none;
+  font-weight:600;
+}
+
+.schedule-actions .print-all:hover{
+  background:#157347;
+}

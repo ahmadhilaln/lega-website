@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LEGA • Scoreboard</title>
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/pages/venue/receiver/receiver.css" />
+</head>
+<body class="sb-body">
+
+  <div class="sb-wrap">
+    <div class="sb-top">
+      <div class="sb-event" id="sbEvent">LEGA</div>
+      <div class="sb-lap" id="sbLap">Lapangan -</div>
+    </div>
+
+    <div class="sb-board">
+      <div class="sb-side">
+        <div class="sb-name" id="sbTeamA">TEAM A</div>
+        <div class="sb-score" id="sbScoreA">0</div>
+      </div>
+      <div class="sb-vs">VS</div>
+      <div class="sb-side right">
+        <div class="sb-name" id="sbTeamB">TEAM B</div>
+        <div class="sb-score" id="sbScoreB">0</div>
+      </div>
+    </div>
+
+    <div class="sb-footer" id="sbFooter">Menunggu control…</div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/pages/venue/receiver/receiver.js"></script>
+</body>
+</html>
